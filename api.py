@@ -498,7 +498,7 @@ async def get_paper_trades():
                 "toss_strategy": getattr(t, 'toss_res', 'FAIL') + " : " + getattr(t, 'toss_opt', 'UNK'),
                 "sl": round(t.sl_price, 2) if t.sl_price else 0.0,
                 "tp": round(t.tp_price, 2) if t.tp_price else 0.0,
-                "pnl": pnl_val
+                "net_pnl": pnl_val
             })
         return {"status": True, "data": result}
     except Exception as e:
