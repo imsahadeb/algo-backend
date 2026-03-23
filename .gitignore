@@ -10,7 +10,7 @@ dist/*
 # Ignore python virtual environments
 venv/
 env/
-
+.venv/
 # Ignore environment variables
 .env
 

@@ -11,6 +11,38 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install smartap
 pip install -r requirements_dev.txt       # for downloading the other required packages
 ```
 
+If you are setting this up on Ubuntu with Python 3.12+, create a virtual environment first and install from `requirements_dev.txt`. The repo now pins a Python 3.12-compatible `cffi` wheel, so `pip install` should not need a local `libffi` build during a normal install. If you still force a source build for `cffi`, install `libffi-dev` first.
+
+## GitHub Actions Deployment
+
+This repo now includes:
+
+- `.github/workflows/deploy.yml` to build the backend image, push it to GHCR, and deploy it to a VPS over SSH with rollback
+- `Dockerfile` and `.dockerignore` for the backend image
+- `deploy/docker-compose.yml` plus example env files for the VPS
+
+### GitHub Secrets
+
+Create these repository secrets before enabling the workflow:
+
+- `VPS_HOST`
+- `VPS_USER`
+- `VPS_SSH_KEY`
+- `VPS_PORT`
+- `GHCR_PAT`
+
+`GHCR_PAT` should be a GitHub token that can read GHCR packages on the server side.
+
+### VPS Setup
+
+Create the deployment directory on your server, for example `/opt/algo-backend`, and place these files there:
+
+- `docker-compose.yml` copied from `deploy/docker-compose.yml`
+- `.env.deploy` based on `deploy/.env.deploy.example`
+- `.env.runtime` based on `deploy/.env.runtime.example`
+
+The container mounts `.env.runtime` to `/app/.env` because this backend reads its configuration from a local `.env` file instead of normal process environment variables.
+
 Download the following packages
 ```bash
 pip install pyotp

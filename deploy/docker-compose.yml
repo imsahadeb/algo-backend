@@ -1,0 +1,9 @@
+services:
+  backend:
+    image: ghcr.io/${GHCR_OWNER}/${IMAGE_NAME}:${BACKEND_TAG}
+    container_name: ${CONTAINER_NAME:-algo-backend}
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ./.env.runtime:/app/.env:ro
