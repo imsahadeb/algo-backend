@@ -1,0 +1,19 @@
+
+.pypirc
+__pycache__
+*.xml
+.idea/smartapi-python.iml
+build/*
+smartapi_python.egg-info
+dist/*
+
+# Ignore python virtual environments
+venv/
+env/
+
+# Ignore environment variables
+.env
+
+# Ignore log files
+logs/
+*.log
