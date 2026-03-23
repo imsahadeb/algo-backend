@@ -21,7 +21,6 @@ jobs:
 
     env:
       IMAGE_NAME: algo-backend
-      DEPLOY_PATH: /opt/algo-backend
       CONTAINER_NAME: algo-backend
 
     steps:
@@ -75,7 +74,7 @@ jobs:
       - name: Deploy to VPS with rollback
         uses: appleboy/ssh-action@v1.0.3
         env:
-          DEPLOY_PATH: ${{ env.DEPLOY_PATH }}
+          DEPLOY_PATH: /home/${{ secrets.VPS_USER }}/algo-backend
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_TAG: ${{ github.sha }}
           GHCR_OWNER: ${{ steps.meta.outputs.owner_lc }}

@@ -35,7 +35,7 @@ Create these repository secrets before enabling the workflow:
 
 ### VPS Setup
 
-Create the deployment directory on your server, for example `/opt/algo-backend`, and place these files there:
+Create the deployment directory on your server, for example `/home/<your-user>/algo-backend`, and place these files there:
 
 - `docker-compose.yml` copied from `deploy/docker-compose.yml`
 - `.env.deploy` based on `deploy/.env.deploy.example`
