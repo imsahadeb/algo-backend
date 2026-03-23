@@ -56,6 +56,22 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Validate deploy secrets
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          GHCR_PAT: ${{ secrets.GHCR_PAT }}
+        run: |
+          set -eu
+
+          [ -n "$VPS_HOST" ] || { echo "Missing secret: VPS_HOST"; exit 1; }
+          [ -n "$VPS_USER" ] || { echo "Missing secret: VPS_USER"; exit 1; }
+          [ -n "$VPS_SSH_KEY" ] || { echo "Missing secret: VPS_SSH_KEY"; exit 1; }
+          [ -n "$VPS_PORT" ] || { echo "Missing secret: VPS_PORT"; exit 1; }
+          [ -n "$GHCR_PAT" ] || { echo "Missing secret: GHCR_PAT"; exit 1; }
+
       - name: Deploy to VPS with rollback
         uses: appleboy/ssh-action@v1.0.3
         env:
